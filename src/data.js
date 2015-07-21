@@ -1,0 +1,1 @@
+export default ['word', 'some', 'game'];
