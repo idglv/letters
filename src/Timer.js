@@ -4,13 +4,14 @@ export default class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {elapsed: 0};
-    this.tick = () => {
-      this.setState({elapsed: new Date() - this.props.start});
-    }
+  }
+
+  tick = () => {
+    this.setState({elapsed: new Date() - this.props.start});
   }
 
   componentDidMount () {
-    this.timer = setInterval(this.tick, 100);
+    this.timer = setInterval(this.tick, 50);
   }
 
   componentDidUnmount () {
