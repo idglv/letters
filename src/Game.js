@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Letter from './Letter';
+import Timer from './Timer';
 import words from './data';
 import generateWord from './generateWord';
 
@@ -10,7 +11,7 @@ export default class Game extends Component {
     let letters = getWord().split('').map((l) => <Letter letter={l}/>);
     return (
       <div>
-        <h1>Yo1</h1>
+        <Timer start={Date.now()}/>
         {letters}
       </div>
     );
