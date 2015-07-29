@@ -88,6 +88,7 @@ export default class Game extends Component {
     return (
       <div>
         <Timer start={Date.now()} end={10} fnTimerDone={this.handleTimerDone}/>
+        <span>Your score: {this.state.score}</span>
         <div style={style}>{answerLetter}</div>
         <div>{letters}</div>
       </div>
