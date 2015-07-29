@@ -1,1 +1,1 @@
-export default ['word', 'some', 'game'];
+export default ['word', 'some', 'game', 'hour', 'from', 'text', 'zoom'];

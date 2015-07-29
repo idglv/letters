@@ -4,13 +4,17 @@
 
 .letter {
   -webkit-user-select: none;
+  display: inline-block;
   border: 0.1em solid #CCC;
   border-radius: 0.3em;
   cursor: pointer;
-  font-family: Consolas, Helvetica, Verdana, sans-serif;
+  font-family: Helvetica, Verdana, sans-serif;
   margin: 0.2em;
   padding: 1em;
-  transition: all 0.1s ease-in-out;
+  text-align: center;
+  width: 1em;
+  transition: all .2s ease-out;
+  font-size: 1.2em;
 }
 
 .letter--enabled {
@@ -20,9 +24,12 @@
 
 .letter--active:hover {
   background-color: #FAFDFF;
+  transform: translate3d(1px, -3px, 0);
+  text-shadow: -1px 3px 0 rgba(0,0,0,.2);
 }
 
-.letter--active:active {
+.letter--active:active {  
+  background-color: #FAC;
   box-shadow: 0px 0px 4px #ccc;
 }
 

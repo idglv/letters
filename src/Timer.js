@@ -3,11 +3,18 @@ import React, { Component } from 'react';
 export default class Timer extends Component {
   constructor(props) {
     super(props);
-    this.state = {elapsed: 0};
+    this.state = {
+      elapsed: 0,
+      start: Date.now()
+    };
   }
 
   tick = () => {
-    this.setState({elapsed: new Date() - this.props.start});
+    this.setState({elapsed: new Date() - this.state.start});
+    if (this.seconds() >= this.props.end) {
+      clearInterval(this.timer);
+      this.props.fnTimerDone();
+    }
   }
 
   componentDidMount () {
@@ -18,12 +25,16 @@ export default class Timer extends Component {
     clearInterval(this.timer);
   }
 
-  render () {
+  seconds = () => {
     let elapsed = this.state.elapsed / 100;
-    let seconds = (elapsed / 10).toFixed(1);
+    return (elapsed / 10).toFixed(1);
+  }
+
+  render () {
+    
 
     return (
-      <div className='timer'>{seconds}</div>
+      <div className='timer'>{this.seconds()}/{this.props.end.toFixed(1)}</div>
     );
   }
 }

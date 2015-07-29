@@ -20,13 +20,13 @@ export default class Game extends Component {
           enabled: false
         }
       })),
-      answerLetter:[]
+      answerLetter:[],
+      score: 0
     }
   }
 
   handleLetter = (index) => {
     let answer = this.state.answerLetter;
-
     this.setState({
       wordLetter: this.state.wordLetter.map((letter) => {
         return letter.index !== index ? letter : {
@@ -37,6 +37,42 @@ export default class Game extends Component {
       }),
       answerLetter: answer.concat(this.state.wordLetter.filter((letter) => letter.index === index))
     })
+    
+  }
+
+  handleAnswer = (index) => {
+    this.setState({
+      wordLetter: this.state.wordLetter.map((letter) => {
+        return letter.index !== index ? letter : {
+          index: letter.index,
+          text: letter.text,
+          enabled: false
+        }
+      }),
+      answerLetter: this.state.answerLetter.filter((letter) => letter.index !== index)
+    });
+  }
+
+  handleTimerDone = () => {
+    alert(this.state.score + ' score');
+  }
+
+  componentDidUpdate() {
+    if (this.state.word === this.state.answerLetter.map((letter) => letter.text).join('')) {
+      let word = getWord();
+      this.setState({
+        word: word,
+        wordLetter: shuffle(word.split('').map((letter, index) => {
+          return {
+            index: index,
+            text: letter,
+            enabled: false
+          }
+        })),
+        answerLetter:[],
+        score: this.state.score + 1
+      })
+    }
   }
 
   render () {
@@ -44,14 +80,14 @@ export default class Game extends Component {
       <Letter letter={letter.text} onClick={this.handleLetter.bind(this, letter.index)} enabled={letter.enabled}/>
     );
     let answerLetter = this.state.answerLetter.map((letter) => 
-      <Letter letter={letter.text} onClick={null} enabled={letter.enabled}/>
+      <Letter letter={letter.text} onClick={this.handleAnswer.bind(this, letter.index)} enabled={letter.enabled}/>
     );
     let style = {
-      height: '4em'
+      height: '5em'
     }
     return (
       <div>
-        <Timer start={Date.now()}/>
+        <Timer start={Date.now()} end={10} fnTimerDone={this.handleTimerDone}/>
         <div style={style}>{answerLetter}</div>
         <div>{letters}</div>
       </div>
