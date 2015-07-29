@@ -18,11 +18,14 @@ export default class Game extends Component {
           text: letter,
           enabled: false
         }
-      })
+      }),
+      answerLetter:[]
     }
   }
 
   handleLetter = (index) => {
+    let answer = this.state.answerLetter;
+
     this.setState({
       wordLetter: this.state.wordLetter.map((letter) => {
         return letter.index !== index ? letter : {
@@ -30,7 +33,8 @@ export default class Game extends Component {
           text: letter.text,
           enabled: true
         }
-      })
+      }),
+      answerLetter: answer.concat(this.state.wordLetter.filter((letter) => letter.index === index))
     })
   }
 
@@ -38,10 +42,17 @@ export default class Game extends Component {
     let letters = this.state.wordLetter.map((letter) => 
       <Letter letter={letter.text} onClick={this.handleLetter.bind(this, letter.index)} enabled={letter.enabled}/>
     );
+    let answerLetter = this.state.answerLetter.map((letter) => 
+      <Letter letter={letter.text} onClick={null} enabled={letter.enabled}/>
+    );
+    let style = {
+      height: '4em'
+    }
     return (
       <div>
         <Timer start={Date.now()}/>
-        {letters}
+        <div style={style}>{answerLetter}</div>
+        <div>{letters}</div>
       </div>
     );
   }
