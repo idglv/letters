@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TransitiveNumber from 'react-transitive-number';
 
 export default class Timer extends Component {
   constructor(props) {
@@ -34,7 +35,9 @@ export default class Timer extends Component {
     
 
     return (
-      <div className='timer'>{this.seconds()}/{this.props.end.toFixed(1)}</div>
+      <div className='timer'>
+        <TransitiveNumber>{this.seconds()} {this.props.end.toFixed(1)}</TransitiveNumber>
+      </div>
     );
   }
 }
