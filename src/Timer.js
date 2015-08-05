@@ -32,11 +32,10 @@ export default class Timer extends Component {
   }
 
   render () {
-    
-
+    let seconds = '' + this.seconds();
     return (
       <div className='timer'>
-        <TransitiveNumber>{this.seconds()} {this.props.end.toFixed(1)}</TransitiveNumber>
+        <TransitiveNumber>{seconds.split('.')[0]}</TransitiveNumber>.{seconds.split('.')[1]}/{this.props.end.toFixed(1)}
       </div>
     );
   }
