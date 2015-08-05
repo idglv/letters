@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Letter from './Letter';
 import Timer from './Timer';
+import List from './List';
 import words from './data';
 import generateWord from './generateWord';
 import shuffle from 'array-shuffle';
@@ -20,7 +21,8 @@ export default class Game extends Component {
           enabled: false
         }
       })),
-      answerLetter:[],
+      answerLetter: [],
+      correctAnswer: [],
       score: 0
     }
   }
@@ -69,7 +71,8 @@ export default class Game extends Component {
             enabled: false
           }
         })),
-        answerLetter:[],
+        answerLetter: [],
+        correctAnswer: this.state.correctAnswer.concat(this.state.word),
         score: this.state.score + 1
       })
     }
@@ -91,6 +94,7 @@ export default class Game extends Component {
         <span>Your score: {this.state.score}</span>
         <div style={style}>{answerLetter}</div>
         <div>{letters}</div>
+        <List list={this.state.correctAnswer}/>
       </div>
     );
   }
