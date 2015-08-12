@@ -17,18 +17,18 @@
   font-size: 1.2em;
 }
 
-.letter--enabled {
+.letter_enabled {
   color: #CCC;
   cursor: default
 }
 
-.letter--active:hover {
+.letter_active:hover {
   background-color: #FAFDFF;
   transform: translate3d(1px, -3px, 0);
   text-shadow: -1px 3px 0 rgba(0,0,0,.2);
 }
 
-.letter--active:active {  
+.letter_active:active {  
   background-color: #FAC;
   box-shadow: 0px 0px 4px #ccc;
 }
