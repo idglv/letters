@@ -6,13 +6,13 @@ export default class Timer extends Component {
     super(props);
     this.state = {
       elapsed: 0,
-      start: Date.now()
+      start: Date.now() + this.props.seconds * 1000
     };
   }
 
   tick = () => {
-    this.setState({elapsed: new Date() - this.state.start});
-    if (this.seconds() >= this.props.end) {
+    this.setState({elapsed: this.state.start - new Date()});
+    if (this.state.start <= new Date()) {
       clearInterval(this.timer);
       this.props.fnTimerDone();
     }
@@ -35,7 +35,7 @@ export default class Timer extends Component {
     let seconds = '' + this.seconds();
     return (
       <div className='timer'>
-        <TransitiveNumber>{seconds.split('.')[0]}</TransitiveNumber>.{seconds.split('.')[1]}/{this.props.end.toFixed(1)}
+        <TransitiveNumber>{Math.abs(seconds.split('.')[0])}</TransitiveNumber>.{seconds.split('.')[1]}
       </div>
     );
   }
