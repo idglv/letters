@@ -5,11 +5,11 @@
 .letter {
   -webkit-user-select: none;
   display: inline-block;
-  border: 0.1em solid #CCC;
-  border-radius: 0.3em;
+  border: .1em solid #CCC;
+  border-radius: .3em;
   cursor: pointer;
   font-family: Helvetica, Verdana, sans-serif;
-  margin: 0.2em;
+  margin: .2em;
   padding: 1em;
   text-align: center;
   width: 1em;
@@ -48,4 +48,14 @@
 
 .timer_red {
   color: crimson;
+}
+
+.answer-list {
+
+}
+
+.answer-list__word {
+  display: inline-block;
+  padding: .3em;
+  letter-spacing: .1em;
 }

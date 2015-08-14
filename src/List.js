@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 export default class List extends Component {
   render() {
-    let list = this.props.list.map((el) => <li>{el}</li>);
+    let list = this.props.list.map((el) => <div className='answer-list__word'>{el}</div>);
     return (
-      <ul>
+      <div className='answer-list'>
         {list}
-      </ul>
+      </div>
     );
   }
 }
