@@ -33,8 +33,17 @@ export default class Timer extends Component {
 
   render () {
     let seconds = '' + this.seconds();
+    let getClassColor = (seconds) => {
+      let total = this.props.seconds;
+      if (+seconds < total * 0.2) return " timer_red";
+      if (+seconds < total * 0.5) return " timer_yellow";
+      return " timer_green";
+    }
+
+    let className = 'timer' + getClassColor(seconds);
+
     return (
-      <div className='timer'>
+      <div className={className}>
         <TransitiveNumber>{Math.abs(seconds.split('.')[0])}</TransitiveNumber>.{seconds.split('.')[1]}
       </div>
     );

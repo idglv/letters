@@ -90,7 +90,7 @@ export default class Game extends Component {
     }
     return (
       <div>
-        <Timer seconds={10} fnTimerDone={this.handleTimerDone}/>
+        <Timer seconds={20} fnTimerDone={this.handleTimerDone}/>
         <span>Your score: {this.state.score}</span>
         <div style={style}>{answerLetter}</div>
         <div>{letters}</div>
