@@ -92,11 +92,11 @@ export default class Game extends Component {
       height: '5em'
     }
     return (
-      <div>
+      <div className="game">
         <Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>
         {/*<span>Your score: {this.state.score}</span>*/}
-        <div>{letters}</div>
-        <div style={style}>{answerLetter}</div>
+        <div className="letter-container">{letters}</div>
+        <div className="letter-container">{answerLetter}</div>
         <List list={this.state.correctAnswer}/>
       </div>
     );

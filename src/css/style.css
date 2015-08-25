@@ -5,6 +5,14 @@
   align-items: center;
 }
 
+.game {
+
+}
+
+.letter-container {
+  height: 4.5em;
+}
+
 .letter {
   -webkit-user-select: none;
   display: inline-block;
@@ -56,7 +64,8 @@
 }
 
 .answer-list {
-  height: 15em;
+  width: 15em;
+  min-height: 6em;
 }
 
 .answer-list__word {
