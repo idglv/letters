@@ -6,12 +6,16 @@ export default class Timer extends Component {
     super(props);
     this.state = {
       elapsed: 0,
-      start: Date.now() + this.props.seconds * 1000
+      start: Date.now() + this.props.seconds * 1000,
+      now: Date.now()
     };
   }
 
   tick = () => {
-    this.setState({elapsed: this.state.start - new Date()});
+    this.setState({
+      elapsed: (this.state.start) - new Date(),
+      start: this.state.now + this.props.seconds * 1000
+    });
     if (this.state.start <= new Date()) {
       clearInterval(this.timer);
       this.props.fnTimerDone();
@@ -35,8 +39,8 @@ export default class Timer extends Component {
     let seconds = '' + this.seconds();
     let getClassColor = (seconds) => {
       let total = this.props.seconds;
-      if (+seconds < total * 0.2) return " timer_red";
-      if (+seconds < total * 0.5) return " timer_yellow";
+      if (+seconds < 5) return " timer_red";
+      if (+seconds < 10) return " timer_yellow";
       return " timer_green";
     }
 

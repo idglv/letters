@@ -1,1 +1,1 @@
-export default ['word', 'some', 'game', 'hour', 'from', 'text', 'zoom'];
+export default ['let', 'lot', 'car', 'foo', 'bar', 'baz'];

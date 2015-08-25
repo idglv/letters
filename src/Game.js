@@ -23,7 +23,8 @@ export default class Game extends Component {
       })),
       answerLetter: [],
       correctAnswer: [],
-      score: 0
+      score: 0,
+      timerMax: 20
     }
   }
 
@@ -73,9 +74,11 @@ export default class Game extends Component {
         })),
         answerLetter: [],
         correctAnswer: this.state.correctAnswer.concat(this.state.word),
-        score: this.state.score + 1
+        score: this.state.score + 1,
+        timerMax: this.state.timerMax + 4
       })
     }
+
   }
 
   render () {
@@ -90,10 +93,10 @@ export default class Game extends Component {
     }
     return (
       <div>
-        <Timer seconds={20} fnTimerDone={this.handleTimerDone}/>
-        <span>Your score: {this.state.score}</span>
-        <div style={style}>{answerLetter}</div>
+        <Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>
+        {/*<span>Your score: {this.state.score}</span>*/}
         <div>{letters}</div>
+        <div style={style}>{answerLetter}</div>
         <List list={this.state.correctAnswer}/>
       </div>
     );
