@@ -17,7 +17,7 @@ export default class Game extends Component {
     let word = oWord.word.toLowerCase();
     this.state = {
       word: word,
-      imgSrc: oWord.href,
+      imgSrc: oWord.src,
       wordLetter: shuffle(word.split('').map((letter, index) => {
         return {
           index: index,
@@ -71,7 +71,7 @@ export default class Game extends Component {
 
       this.setState({
         word: word,
-        imgSrc: oWord.href,
+        imgSrc: oWord.src,
         wordLetter: shuffle(word.split('').map((letter, index) => {
           return {
             index: index,
@@ -98,12 +98,11 @@ export default class Game extends Component {
     let style = {
       height: '5em'
     }
-    let host = 'http://4pics1word.ws';
     return (
       <div className='game'>
         {/*<Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>*/}
         <div className='img-container'>
-          <img className='img-quiz' src={host + this.state.imgSrc}/>
+          <img className='img-quiz' src={this.state.imgSrc}/>
         </div>
         <div className='letter-container'>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
