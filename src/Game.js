@@ -5,15 +5,19 @@ import List from './List';
 import words from './data';
 import generateWord from './generateWord';
 import shuffle from 'array-shuffle';
+import imgs from './images';
 
-let getWord = generateWord(words);
+let getOWord = generateWord(imgs);
 
 export default class Game extends Component {
   constructor(props) {
     super(props);
-    let word = getWord();
+    let oWord = getOWord();
+    
+    let word = oWord.word.toLowerCase();
     this.state = {
       word: word,
+      imgSrc: oWord.href,
       wordLetter: shuffle(word.split('').map((letter, index) => {
         return {
           index: index,
@@ -57,14 +61,17 @@ export default class Game extends Component {
   }
 
   handleTimerDone = () => {
-    alert(this.state.score + ' score');
+    //alert(this.state.score + ' score');
   }
 
   componentDidUpdate() {
     if (this.state.word === this.state.answerLetter.map((letter) => letter.text).join('')) {
-      let word = getWord();
+      let oWord = getOWord();
+      let word = oWord.word.toLowerCase();
+
       this.setState({
         word: word,
+        imgSrc: oWord.href,
         wordLetter: shuffle(word.split('').map((letter, index) => {
           return {
             index: index,
@@ -91,12 +98,15 @@ export default class Game extends Component {
     let style = {
       height: '5em'
     }
+    let host = 'http://4pics1word.ws';
     return (
-      <div className="game">
+      <div className='game'>
         <Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>
-        {/*<span>Your score: {this.state.score}</span>*/}
-        <div className="letter-container">{letters}</div>
-        <div className="letter-container">{answerLetter}</div>
+        <div className='img-container'>
+          <img className='img-quiz' src={host + this.state.imgSrc}/>
+        </div>
+        <div className='letter-container'>{answerLetter}</div>
+        <div className='letter-container'>{letters}</div>
         <List list={this.state.correctAnswer}/>
       </div>
     );

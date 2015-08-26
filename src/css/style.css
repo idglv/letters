@@ -9,6 +9,16 @@
 
 }
 
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.img-quiz {
+  width: 15em;
+  height: 15em;
+}
+
 .letter-container {
   height: 4.5em;
 }
