@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Letter from './Letter';
-import Timer from './Timer';
+//import Timer from './Timer';
 import List from './List';
 import words from './data';
 import generateWord from './generateWord';
@@ -101,7 +101,7 @@ export default class Game extends Component {
     let host = 'http://4pics1word.ws';
     return (
       <div className='game'>
-        <Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>
+        {/*<Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>*/}
         <div className='img-container'>
           <img className='img-quiz' src={host + this.state.imgSrc}/>
         </div>
