@@ -25,6 +25,7 @@ export default class Game extends Component {
           enabled: false
         }
       })),
+      wrong: false,
       answerLetter: [],
       correctAnswer: [],
       score: 0,
@@ -56,7 +57,8 @@ export default class Game extends Component {
           enabled: false
         }
       }),
-      answerLetter: this.state.answerLetter.filter((letter) => letter.index !== index)
+      answerLetter: this.state.answerLetter.filter((letter) => letter.index !== index),
+      wrong: false
     });
   }
 
@@ -80,12 +82,16 @@ export default class Game extends Component {
           }
         })),
         answerLetter: [],
+        wrong: false,
         correctAnswer: this.state.correctAnswer.concat(this.state.word),
         score: this.state.score + 1,
         timerMax: this.state.timerMax + 4
       })
+    } else if (!this.state.wrong && this.state.answerLetter.length === this.state.word.length) {
+      this.setState({
+        wrong: true
+      })
     }
-
   }
 
   render () {
@@ -98,13 +104,17 @@ export default class Game extends Component {
     let style = {
       height: '5em'
     }
+    let answerClass = 'letter-container';
+    if (this.state.wrong) {
+      answerClass += ' letter-container_wrong';
+    }
     return (
       <div className='game'>
         {/*<Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>*/}
         <div className='img-container'>
           <img className='img-quiz' src={this.state.imgSrc}/>
         </div>
-        <div className='letter-container'>{answerLetter}</div>
+        <div className={answerClass}>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
         <List list={this.state.correctAnswer}/>
       </div>

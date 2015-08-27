@@ -23,6 +23,10 @@
   height: 4.5em;
 }
 
+.letter-container_wrong {
+  background-color: crimson;
+}
+
 .letter {
   -webkit-user-select: none;
   display: inline-block;
