@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 
 export default class Letter extends Component {
   render() {
-    let className = "letter";
+    let className = 'letter';
     let fnClick = this.props.onClick;
-    if (this.props.enabled)  {
-      className += " letter_enabled";
+    if (this.props.enabled) {
+      className += ' letter_enabled';
       fnClick = null;
     } else {
-      className += " letter_active";
+      className += ' letter_active';
     }
 
     if (this.props.wrong) {
-      className += " letter_wrong";
+      className += ' letter_wrong';
     }
 
     return (
