@@ -10,6 +10,11 @@ export default class Letter extends Component {
     } else {
       className += " letter_active";
     }
+
+    if (this.props.wrong) {
+      className += " letter_wrong";
+    }
+
     return (
       <a className={className} onClick={fnClick}>{this.props.letter}</a>
     );

@@ -99,15 +99,13 @@ export default class Game extends Component {
       <Letter letter={letter.text} onClick={this.handleLetter.bind(this, letter.index)} enabled={letter.enabled}/>
     );
     let answerLetter = this.state.answerLetter.map((letter) => 
-      <Letter letter={letter.text} onClick={this.handleAnswer.bind(this, letter.index)} enabled={letter.enabled}/>
+      <Letter letter={letter.text} onClick={this.handleAnswer.bind(this, letter.index)} enabled={letter.enabled} wrong={this.state.wrong}/>
     );
     let style = {
       height: '5em'
     }
     let answerClass = 'letter-container';
-    if (this.state.wrong) {
-      answerClass += ' letter-container_wrong';
-    }
+
     return (
       <div className='game'>
         {/*<Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>*/}
