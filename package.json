@@ -31,7 +31,8 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
-    "react": "^0.13.0",
-    "array-shuffle": "^1.0.0"
+    "array-shuffle": "^1.0.0",
+    "object-assign": "^4.0.1",
+    "react": "^0.13.0"
   }
 }

@@ -1,86 +1,49 @@
 import React, { Component } from 'react';
 import Letter from './Letter';
 import List from './List';
-import generateWord from './generateWord';
-import shuffle from 'array-shuffle';
-import imgs from './images';
+import assign from 'object-assign';
 import ImageLoader from 'react-imageloader';
-
-let getOWord = generateWord(imgs);
+import util from './Util';
 
 export default class Game extends Component {
   constructor(props) {
     super(props);
-    let oWord = getOWord();
 
-    let word = oWord.word.toUpperCase();
-    this.state = {
-      word: word,
-      imgSrc: oWord.src,
-      wordLetter: shuffle(word.split('').map((letter, index) => {
-        return {
-          index: index,
-          text: letter,
-          enabled: false
-        };
-      })),
+    this.state = assign(util.getNewWord(), {
       wrong: false,
       answerLetter: [],
-      correctAnswer: [],
-      score: 0,
-      timerMax: 20
-    };
+      correctAnswer: []
+    });
   }
 
   handleLetter = (index) => {
     let answer = this.state.answerLetter;
+    let letters = this.state.wordLetter;
     this.setState({
-      wordLetter: this.state.wordLetter.map((letter) => {
-        return letter.index !== index ? letter : {
-          index: letter.index,
-          text: letter.text,
-          enabled: true
-        };
-      }),
-      answerLetter: answer.concat(this.state.wordLetter.filter((letter) => letter.index === index))
+      wordLetter: util.changeEnabled(letters, index),
+      answerLetter: util.addLetter(answer, letters, index)
     });
   }
 
   handleAnswer = (index) => {
+    let answer = this.state.answerLetter;
+    let letters = this.state.wordLetter;
     this.setState({
-      wordLetter: this.state.wordLetter.map((letter) => {
-        return letter.index !== index ? letter : {
-          index: letter.index,
-          text: letter.text,
-          enabled: false
-        };
-      }),
-      answerLetter: this.state.answerLetter.filter((letter) => letter.index !== index),
+      wordLetter: util.changeEnabled(letters, index),
+      answerLetter: util.removeLetter(answer, index),
       wrong: false
     });
   }
 
   componentDidUpdate() {
-    if (this.state.word.toUpperCase() === this.state.answerLetter.map((letter) => letter.text).join('')) {
-      let oWord = getOWord();
-      let word = oWord.word.toUpperCase();
-
-      this.setState({
-        word: word,
-        imgSrc: oWord.src,
-        wordLetter: shuffle(word.split('').map((letter, index) => {
-          return {
-            index: index,
-            text: letter,
-            enabled: false
-          };
-        })),
-        answerLetter: [],
-        wrong: false,
-        correctAnswer: this.state.correctAnswer.concat(this.state.word),
-        score: this.state.score + 1,
-        timerMax: this.state.timerMax + 4
-      });
+    if (this.state.word === this.state.answerLetter.map((letter) => letter.text).join('')) {
+      this.setState(
+        assign(util.getNewWord(), {
+          answerLetter: [],
+          wrong: false,
+          //correctAnswer: this.state.correctAnswer.concat(this.state.word),
+        })
+      );
     } else if (!this.state.wrong && this.state.answerLetter.length === this.state.word.length) {
       this.setState({
         wrong: true
@@ -90,10 +53,19 @@ export default class Game extends Component {
 
   render () {
     let letters = this.state.wordLetter.map((letter) =>
-      <Letter letter={letter.text} onClick={this.handleLetter.bind(this, letter.index)} enabled={letter.enabled}/>
+      <Letter
+        letter={letter.text}
+        onClick={this.handleLetter.bind(this, letter.index)}
+        enabled={letter.enabled}
+      />
     );
     let answerLetter = this.state.answerLetter.map((letter) =>
-      <Letter letter={letter.text} onClick={this.handleAnswer.bind(this, letter.index)} enabled={letter.enabled} wrong={this.state.wrong}/>
+      <Letter
+        letter={letter.text}
+        onClick={this.handleAnswer.bind(this, letter.index)}
+        enabled={letter.enabled}
+        wrong={this.state.wrong}
+      />
     );
     let answerClass = 'letter-container';
     let fnPreloader = () => <img src='./src/spinner.gif' />;
@@ -109,7 +81,7 @@ export default class Game extends Component {
         </div>
         <div className={answerClass}>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
-        <List list={this.state.correctAnswer}/>
+        {/*<List list={this.state.correctAnswer}/>*/}
       </div>
     );
   }
