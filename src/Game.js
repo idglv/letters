@@ -6,6 +6,7 @@ import words from './data';
 import generateWord from './generateWord';
 import shuffle from 'array-shuffle';
 import imgs from './images';
+import ImageLoader from 'react-imageloader';
 
 let getOWord = generateWord(imgs);
 
@@ -105,12 +106,18 @@ export default class Game extends Component {
       height: '5em'
     }
     let answerClass = 'letter-container';
-
+    let fnPreloader = () => <img src='./src/spinner.gif' />;
     return (
       <div className='game'>
         {/*<Timer seconds={this.state.timerMax} fnTimerDone={this.handleTimerDone}/>*/}
         <div className='img-container'>
-          <img className='img-quiz' src={this.state.imgSrc}/>
+        <ImageLoader
+          imgProps={{className:'img-quiz'}} 
+          src={this.state.imgSrc} 
+          wrapper={React.DOM.div}
+          preloader={fnPreloader}>
+        </ImageLoader>
+          {/*<img className='img-quiz' src={this.state.imgSrc}/>*/}
         </div>
         <div className={answerClass}>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
