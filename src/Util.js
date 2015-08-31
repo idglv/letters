@@ -9,20 +9,20 @@ let _changeLetterEnabled = (letter) => {
     index: letter.index,
     text: letter.text,
     enabled: !letter.enabled
-  }
+  };
 };
 
 let _wordToLetters = (word) => {
   return word.split('').map((letter, index) => {
-      return {
-        index: index,
-        text: letter,
-        enabled: false
-      };
-    })
+    return {
+      index: index,
+      text: letter,
+      enabled: false
+    };
+  });
 };
 
-let  _shuffleLetters = (word) => shuffle(_wordToLetters(word));
+let _shuffleLetters = (word) => shuffle(_wordToLetters(word));
 
 export default {
   changeEnabled: (letters, index) => {
@@ -31,11 +31,11 @@ export default {
           return _changeLetterEnabled(letter);
         }
       return letter;
-    })
+    });
   },
 
   removeLetter: (letters, index) => {
-    return letters.filter((letter) => letter.index !== index)
+    return letters.filter((letter) => letter.index !== index);
   },
 
   addLetter: (result, letters, index) => {
@@ -50,4 +50,4 @@ export default {
       wordLetter: _shuffleLetters(oWord.word)
     };
   }
-}
+};

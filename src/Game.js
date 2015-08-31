@@ -41,7 +41,7 @@ export default class Game extends Component {
         assign(util.getNewWord(), {
           answerLetter: [],
           wrong: false,
-          //correctAnswer: this.state.correctAnswer.concat(this.state.word),
+          correctAnswer: this.state.correctAnswer.concat(this.state.word)
         })
       );
     } else if (!this.state.wrong && this.state.answerLetter.length === this.state.word.length) {
@@ -67,8 +67,9 @@ export default class Game extends Component {
         wrong={this.state.wrong}
       />
     );
-    let answerClass = 'letter-container';
+
     let fnPreloader = () => <img src='./src/spinner.gif' />;
+
     return (
       <div className='game'>
         <div className='img-container'>
@@ -79,9 +80,9 @@ export default class Game extends Component {
           preloader={fnPreloader}>
         </ImageLoader>
         </div>
-        <div className={answerClass}>{answerLetter}</div>
+        <div className='letter-container'>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
-        {/*<List list={this.state.correctAnswer}/>*/}
+        <List list={this.state.correctAnswer}/>
       </div>
     );
   }
