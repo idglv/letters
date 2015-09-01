@@ -1,6 +1,8 @@
 import shuffle from 'array-shuffle';
 import generateWord from './generateWord';
 import imgs from './images';
+import assign from 'object-assign';
+import randomString from 'random-string';
 
 let _getOWord = generateWord(imgs);
 
@@ -12,17 +14,26 @@ let _changeLetterEnabled = (letter) => {
   };
 };
 
-let _wordToLetters = (word) => {
+let _wordToLetters = (word, options) => {
+  let opt = assign({invert: false}, options);
   return word.split('').map((letter, index) => {
     return {
-      index: index,
+      index: opt.invert ? ~index : index,
       text: letter,
       enabled: false
     };
   });
 };
 
-let _shuffleLetters = (word) => shuffle(_wordToLetters(word));
+let _randLetters = () => _wordToLetters(randomString({
+    length: 4,
+    numeric: false
+  }).toLowerCase(), {
+  invert: true
+})
+
+let _shuffleLetters = (word) =>
+  shuffle(_wordToLetters(word).concat(_randLetters()));
 
 export default {
   changeEnabled: (letters, index) => {

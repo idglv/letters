@@ -16,7 +16,7 @@ export default class Letter extends Component {
     }
 
     return (
-      <a className={className} onClick={fnClick}>{this.props.letter}</a>
+      <a className={className} onClick={fnClick}>{this.props.letter.toUpperCase()}</a>
     );
   }
 }
