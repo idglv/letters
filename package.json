@@ -33,6 +33,8 @@
   "dependencies": {
     "array-shuffle": "^1.0.0",
     "object-assign": "^4.0.1",
-    "react": "^0.13.0"
+    "random-string": "^0.1.2",
+    "react": "^0.13.0",
+    "react-imageloader": "^2.1.0"
   }
 }
