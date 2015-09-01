@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Letter from './Letter';
 import List from './List';
 import assign from 'object-assign';
-import ImageLoader from 'react-imageloader';
 import util from './Util';
 
 export default class Game extends Component {
@@ -10,6 +9,7 @@ export default class Game extends Component {
     super(props);
 
     this.state = assign(util.getNewWord(), {
+      load: true,
       wrong: false,
       answerLetter: [],
       correctAnswer: []
@@ -39,8 +39,9 @@ export default class Game extends Component {
     if (this.state.word === this.state.answerLetter.map((letter) => letter.text).join('')) {
       this.setState(
         assign(util.getNewWord(), {
-          answerLetter: [],
+          load: true,
           wrong: false,
+          answerLetter: [],
           correctAnswer: this.state.correctAnswer.concat(this.state.word)
         })
       );
@@ -69,17 +70,16 @@ export default class Game extends Component {
         wrong={this.state.wrong}
       />
     );
-    let fnPreloader = () => <img className='spinner' src='./src/spinner.gif' />;
 
+    let handleImgLoad = () => this.setState({
+      load: false
+    });
+
+    let loadStyle = this.state.load ? {opacity: .3} : {};
     return (
-      <div className='game'>
+      <div className='game' style={loadStyle}>
         <div className='img-container'>
-        <ImageLoader
-          imgProps={{className: 'img-quiz'}}
-          src={this.state.imgSrc}
-          wrapper={React.DOM.div}
-          preloader={fnPreloader}>
-        </ImageLoader>
+          <img className='img-quiz' src={this.state.imgSrc} onLoad={handleImgLoad}/>
         </div>
         <div className='letter-container letter-container_answer'>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>

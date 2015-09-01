@@ -5,6 +5,7 @@
 .game {
   width: 17em;
   margin: 0 auto;
+  transition: all .3s linear;
 }
 
 .img-container {
