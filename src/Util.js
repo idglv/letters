@@ -20,7 +20,7 @@ let _wordToLetters = (word, options) => {
     return {
       index: opt.invert ? ~index : index,
       text: letter,
-      enabled: false
+      enabled: true
     };
   });
 };

@@ -52,11 +52,13 @@ export default class Game extends Component {
   }
 
   render () {
+    let isAnswerSpace = this.state.answerLetter.length < this.state.word.length;
+
     let letters = this.state.wordLetter.map((letter) =>
       <Letter
         letter={letter.text}
         onClick={this.handleLetter.bind(this, letter.index)}
-        enabled={letter.enabled}
+        enabled={isAnswerSpace && letter.enabled}
       />
     );
     let answerLetter = this.state.answerLetter.map((letter) =>
@@ -67,8 +69,7 @@ export default class Game extends Component {
         wrong={this.state.wrong}
       />
     );
-
-    let fnPreloader = () => <img src='./src/spinner.gif' />;
+    let fnPreloader = () => <img className='spinner' src='./src/spinner.gif' />;
 
     return (
       <div className='game'>
