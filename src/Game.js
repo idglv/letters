@@ -80,7 +80,7 @@ export default class Game extends Component {
           preloader={fnPreloader}>
         </ImageLoader>
         </div>
-        <div className='letter-container'>{answerLetter}</div>
+        <div className='letter-container letter-container_answer'>{answerLetter}</div>
         <div className='letter-container'>{letters}</div>
         <List list={this.state.correctAnswer}/>
       </div>
