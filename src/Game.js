@@ -58,14 +58,14 @@ export default class Game extends Component {
     let letters = this.state.wordLetter.map((letter) =>
       <Letter
         letter={letter.text}
-        onClick={this.handleLetter.bind(this, letter.index)}
+        onClick={() => this.handleLetter(letter.index)}
         enabled={isAnswerSpace && letter.enabled}
       />
     );
     let answerLetter = this.state.answerLetter.map((letter) =>
       <Letter
         letter={letter.text}
-        onClick={this.handleAnswer.bind(this, letter.index)}
+        onClick={() => this.handleAnswer(letter.index)}
         enabled={letter.enabled}
         wrong={this.state.wrong}
       />
