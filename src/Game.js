@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import Letter from './Letter';
 import List from './List';
-import assign from 'object-assign';
 import util from './Util';
 
 export default class Game extends Component {
   constructor(props) {
     super(props);
 
-    this.state = assign(util.getNewWord(), {
+    this.state = Object.assign({}, util.getNewWord(), {
       load: true,
       wrong: false,
       answerLetter: [],
@@ -38,7 +37,7 @@ export default class Game extends Component {
   componentDidUpdate() {
     if (this.state.word === this.state.answerLetter.map((letter) => letter.text).join('')) {
       this.setState(
-        assign(util.getNewWord(), {
+        Object.assign({}, util.getNewWord(), {
           load: true,
           wrong: false,
           answerLetter: [],

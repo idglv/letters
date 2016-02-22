@@ -1,7 +1,6 @@
 import shuffle from 'array-shuffle';
 import generateWord from './generateWord';
 import imgs from './images';
-import assign from 'object-assign';
 import randomString from 'random-string';
 
 let _getOWord = generateWord(imgs);
@@ -15,7 +14,7 @@ let _changeLetterEnabled = (letter) => {
 };
 
 let _wordToLetters = (word, options) => {
-  let opt = assign({invert: false}, options);
+  let opt = Object.assign({}, {invert: false}, options);
   return word.split('').map((letter, index) => {
     return {
       index: opt.invert ? ~index : index,
