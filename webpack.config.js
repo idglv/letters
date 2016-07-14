@@ -1,43 +1,41 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+const PATHS = {
+    app: path.join(__dirname, 'src/'),
+    build: path.join(__dirname, 'build/'),
+    style: path.join(__dirname, 'src/style/'),
+    index: path.join(__dirname, 'assets/index.html')
+};
 
 module.exports = {
-  devtool: process.env.NODE_ENV === 'production' ? false : 'eval',
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    './src/index'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
-    // keeps hashes consistent between compilations
-    new webpack.optimize.OccurenceOrderPlugin(),
-    // minifies your code
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false
-      }
-    })
-  ],
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel'],
-      include: path.join(__dirname, 'src')
-    }]
-  }
-};
+    entry: PATHS.app,
+    output: {
+        path: PATHS.build,
+        filename: '[name].js'
+    },
+    module: {
+        loaders: [{
+            test: /\.jsx?$/,
+            loaders: ['react-hot', 'babel'],
+            exclude: /node_modules/
+        },{
+            test: /\.styl$/,
+            loaders: ['style', 'css', 'postcss', 'stylus'],
+            include: PATHS.style
+        }]
+    },
+    progress: true,
+    resolve: {
+        extensions: ['', '.js', '.jsx']
+    },
+    postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: 'mp1',
+            template: PATHS.index
+        })
+    ]
+}
+
