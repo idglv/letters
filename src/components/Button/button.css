@@ -1,0 +1,17 @@
+.btn {
+  border: none;
+  padding: 14px 28px;
+  cursor: pointer;
+  width: 100%;
+  opacity: 1;
+  font-size: 1.1rem;
+}
+
+.btn_default {
+  background-color: var(--app-light-background);
+  color: var(--text-color);
+}
+
+.btn_default:hover {
+  opacity: .7;
+}
