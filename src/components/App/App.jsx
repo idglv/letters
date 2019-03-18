@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from "react";
+import { range, shuffle } from "lodash";
+import isMobile from "ismobilejs";
+import cx from "classnames";
+
 import "./app.css";
 import Letter from "../Letter";
 import Switch from "../Switch";
 import Button from "../Button";
-import { range, shuffle } from "lodash";
 import data from "../../data";
 import { newGame, selectLetter, deselectLetter } from "../../Game";
-import cx from "classnames";
 
 class App extends Component {
   constructor(props) {
@@ -26,6 +28,8 @@ class App extends Component {
       skippedWords: [],
       loading: true
     };
+
+    this.inputValue = React.createRef();
   }
 
   newGameState = state => {
@@ -93,21 +97,6 @@ class App extends Component {
     });
   };
 
-  renderLetterList = (letters, handleClick) => {
-    return letters.map((letter, index) => {
-      return (
-        <Letter
-          key={letter.id}
-          onClick={handleClick}
-          index={index}
-          value={letter.value}
-          selected={letter.selected}
-          wrong={letter.wrong}
-        />
-      );
-    });
-  };
-
   themeChange = () => {
     const newDarkTheme = !this.state.darkTheme;
 
@@ -132,6 +121,50 @@ class App extends Component {
     });
   };
 
+
+  handleInputValueChange = e => {
+    const value = e.target.value.toUpperCase();
+    const game = this.state.game;
+    
+    const letterIndex = game.letters.findIndex(letter => {
+      return letter.value === value && !game.answer.includes(letter.id);
+    });
+
+    if (letterIndex !== -1 ) {
+      this.setState({
+        game: selectLetter(game, letterIndex)
+      }, this.checkGameState)
+    }
+
+  };
+
+  handleInputValueKeyDown = e => {
+    const game = this.state.game;
+
+    // Backspace
+    if (e.which === 8) {
+      const answer = game.answer;
+      if (answer.length) {
+        const lastIndex = answer.length - 1;
+        this.setState({
+          game: deselectLetter(game, lastIndex)
+        });
+      }
+    }
+    // Space
+    if (e.which === 32) {
+      this.handleSkipGame();
+    }
+  };
+
+  handlePutFocusInInput = () => {
+    if (!isMobile.any) {
+      this.inputValue.current.focus()
+    }
+  };
+
+  // Render
+
   gameToAnswer = game => {
     return game.answer.map(id => ({
       id: id,
@@ -150,6 +183,21 @@ class App extends Component {
     }));
   };
 
+  renderLetterList = (letters, handleClick) => {
+    return letters.map((letter, index) => {
+      return (
+        <Letter
+          key={letter.id}
+          onClick={handleClick}
+          index={index}
+          value={letter.value}
+          selected={letter.selected}
+          wrong={letter.wrong}
+        />
+      );
+    });
+  };
+
   render() {
     const { game, loading, prevWords, skippedWords } = this.state;
     const imageClass = cx("image", {
@@ -158,7 +206,7 @@ class App extends Component {
 
     return (
       <Fragment>
-        <div className="settings-block">
+        <div className="settings-block" onClick={this.handlePutFocusInInput}>
           <div className="settings">
             <Switch
               text="Dark theme"
@@ -173,9 +221,10 @@ class App extends Component {
             <Button onClick={this.handleSkipGame}>Next word</Button>
             <p>{prevWords.join(", ")}</p>
             <p className="skipped">{skippedWords.join(", ")}</p>
+            <p>You can use keyboard to answer. Press "Space" to skip word.</p>
           </div>
         </div>
-        <div className="app-block">
+        <div className="app-block" onClick={this.handlePutFocusInInput}>
           <div className="app">
             <img
               className={imageClass}
@@ -183,6 +232,7 @@ class App extends Component {
               alt=""
               onLoad={this.handleImageOnload}
             />
+            <input autoFocus={!isMobile.any} ref={this.inputValue} className="input_value" type="text" value="" onKeyDown={this.handleInputValueKeyDown} onChange={this.handleInputValueChange} />
             <div className="word">
               {this.renderLetterList(
                 this.gameToAnswer(game),

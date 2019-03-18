@@ -27,3 +27,9 @@
 .skipped {
   text-decoration: line-through;
 }
+
+.input_value {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
