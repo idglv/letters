@@ -1,20 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import "./switch.css";
 
-class Switch extends Component {
-  render() {
+export default function Switch(props) {
     return (
       <label className="switch">
-        {this.props.text}
+        {props.text}
         <input
-          checked={this.props.checked}
+          checked={props.checked}
           type="checkbox"
-          onChange={this.props.onChange}
+          onChange={props.onChange}
         />
         <span className="slider round" />
       </label>
     );
-  }
 }
-
-export default Switch;
